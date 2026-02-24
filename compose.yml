@@ -53,6 +53,9 @@ services:
         condition: service_healthy
     networks:
       - dokploy-network
+    ports:
+      - 8030:80
+      - 8031:443
     volumes:
       - plausible-data:/var/lib/plausible
     ulimits:
