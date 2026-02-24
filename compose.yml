@@ -4,6 +4,8 @@ services:
     restart: always
     volumes:
       - db-data:/var/lib/postgresql/data
+    networks:
+      - dokploy-network
     environment:
       - POSTGRES_PASSWORD=postgres
     healthcheck:
@@ -13,6 +15,8 @@ services:
   plausible_events_db:
     image: clickhouse/clickhouse-server:24.12-alpine
     restart: always
+    networks:
+      - dokploy-network
     volumes:
       - event-data:/var/lib/clickhouse
       - event-logs:/var/log/clickhouse-server
@@ -47,6 +51,8 @@ services:
         condition: service_healthy
       plausible_events_db:
         condition: service_healthy
+    networks:
+      - dokploy-network
     volumes:
       - plausible-data:/var/lib/plausible
     ulimits:
